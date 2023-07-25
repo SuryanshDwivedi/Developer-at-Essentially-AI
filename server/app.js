@@ -28,6 +28,8 @@ app.enable('trust proxy');
 
 app.post('/api/fetchStockData', (req, res) => {
     // YOUR CODE GOES HERE, PLEASE DO NOT EDIT ANYTHING OUTSIDE THIS FUNCTION
+    const {stocksTicker, multiplier, timespan, from, to} = req.body;
+    const res = axios.get(`https://api.polygon.io/v2/aggs/ticker/${stocksTicker}/range/${multiplier}/${timespan}/${from}/${to}?adjusted=true&sort=asc&limit=120&apiKey=3asOGuyjWIJdplHUBuLiQbmOnv1a9pl0`)
     res.sendStatus(200);
 });
 
