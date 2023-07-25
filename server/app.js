@@ -6,6 +6,7 @@ const bodyParser = require("body-parser");
 const axios = require("axios");
 
 const app = express();
+const { DOMAIN, API_KEY } = process.env
 
 app.use(function (req, res, next) {
     const allowedOrigins = ['http://localhost:3000'];
@@ -26,11 +27,18 @@ app.use(bodyParser.json());
 
 app.enable('trust proxy');
 
-app.post('/api/fetchStockData', (req, res) => {
+app.post('/api/fetchStockData', async (req, res) => {
     // YOUR CODE GOES HERE, PLEASE DO NOT EDIT ANYTHING OUTSIDE THIS FUNCTION
-    const {stocksTicker, multiplier, timespan, from, to} = req.body;
-    const res = axios.get(`https://api.polygon.io/v2/aggs/ticker/${stocksTicker}/range/${multiplier}/${timespan}/${from}/${to}?adjusted=true&sort=asc&limit=120&apiKey=3asOGuyjWIJdplHUBuLiQbmOnv1a9pl0`)
-    res.sendStatus(200);
+    try {
+        const { stocksTicker, multiplier = 1, timespan = 'day', from, to, limit = 120 } = req.body;
+
+        const result = await axios.get(`${DOMAIN}/v2/aggs/ticker/${stocksTicker}/range/${multiplier}/${timespan}/${from}/${to}?adjusted=true&sort=asc&limit=${limit}&apiKey=${API_KEY}`)
+        res.json({ status: 200, message: result.data });
+        
+    } catch (err) {
+        res.json({ status: 404, message: "Data Not Found" })
+    }
+
 });
 
 const port = process.env.PORT || 5000;
