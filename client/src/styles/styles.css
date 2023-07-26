@@ -1,0 +1,41 @@
+@keyframes spinner {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  .loading-spinner {
+    width: 20px;
+    height: 20px;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #383636;
+    border-radius: 50%;
+    animation: spinner 1.5s linear infinite;
+  }
+
+.App {
+    padding: 1%;
+    background-color: rgb(238, 233, 233);
+}
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.submitBtn {
+    margin-left: 45%;
+    border-radius: 10%;
+    font-size: medium;
+    font-weight: 300;
+}
+
+.data {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 4%;
+}
+
