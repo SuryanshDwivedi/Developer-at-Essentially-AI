@@ -6,7 +6,7 @@ function StockDisplayComponent(stocksData) {
 
     return (
         <div>
-            <h2>Stock Data {stockDataObject.name}</h2>
+            <h2>Trade Statistics : <u>{stockDataObject.name}</u></h2>
             <p>
                 <strong>Close:</strong> {stockDataObject.c ? stockDataObject.c : "__"}
             </p>
