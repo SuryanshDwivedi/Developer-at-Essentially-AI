@@ -30,11 +30,12 @@ app.enable('trust proxy');
 app.post('/api/fetchStockData', async (req, res) => {
     // YOUR CODE GOES HERE, PLEASE DO NOT EDIT ANYTHING OUTSIDE THIS FUNCTION
     try {
-        const { stocksTicker, multiplier = 1, timespan = 'day', from, to, limit = 120 } = req.body;
+        const { stocksTicker, multiplier = 1, timespan = 'day', from, limit = 120 } = req.body;
+        let to = from
 
         const result = await axios.get(`${DOMAIN}/v2/aggs/ticker/${stocksTicker}/range/${multiplier}/${timespan}/${from}/${to}?adjusted=true&sort=asc&limit=${limit}&apiKey=${API_KEY}`)
         res.json({ status: 200, message: result.data });
-        
+
     } catch (err) {
         res.json({ status: 404, message: "Data Not Found" })
     }
